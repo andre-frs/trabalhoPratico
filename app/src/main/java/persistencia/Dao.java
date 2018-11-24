@@ -66,4 +66,10 @@ class Dao extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
+    public void execSQL(String params) throws SQLiteException {
+        SQLiteDatabase writtableDB = this.getWritableDatabase();
+        try { writtableDB.execSQL(params); }
+        catch(SQLiteException e) { throw e; }
+        finally { writtableDB.close(); }
+    }
 }

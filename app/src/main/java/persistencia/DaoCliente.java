@@ -14,15 +14,18 @@ public class DaoCliente extends Dao {
 
     DaoCliente(Context context) { super(context); }
 
-    public void insertFuncionario(Cliente c) throws SQLiteException {
-        SQLiteDatabase writtableDB = this.getWritableDatabase();
+    public void insertCliente(Cliente c) throws SQLiteException {
+        String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', '%s', %d", c.getNome(), c.getRg(), c.getCpf(), c.getEndereco(), c.getCnh(), c.getNumeroDeDependentes());
+        execSQL(String.format(Locale.US, "INSERT INTO CLIENTE (NOME, RG, CPF, ENDERECCO, CNH, NUMERODEPENDENTES) VALUES (%s);", values));
+    }
 
-        try {
-            String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', '%s', %d", c.getNome(), c.getRg(), c.getCpf(), c.getEndereco(), c.getCnh(), c.getNumeroDeDependentes());
-            writtableDB.execSQL(String.format(Locale.US, "INSERT INTO CLIENTE (NOME, RG, CPF, ENDERECCO, CNH, NUMERODEPENDENTES) VALUES (%s);", values));
+    public void updateCliente(Cliente c) throws SQLiteException {
+        String values = String.format(Locale.US, "NOME = '%s', RG = '%s', CPF = '%s', ENDERECCO = '%s', CNH = '%s', NUMERODEPENDENTES = %d", c.getNome(), c.getRg(), c.getCpf(), c.getEndereco(), c.getCnh(), c.getNumeroDeDependentes());
+        execSQL(String.format(Locale.US, "UPDATE CLIENTE SET %s WHERE ID = %d;", values, c.getId()));
+    }
 
-        } catch(SQLiteException e) { throw e;
-        } finally { writtableDB.close(); }
+    public void deleteCliente(Cliente c) throws SQLiteException {
+        execSQL(String.format(Locale.US, "DELETE FROM CLIENTE WHERE ID = %d;", c.getId()));
     }
 
     public LinkedList<Cliente> selectClientes(String where) throws RuntimeException {

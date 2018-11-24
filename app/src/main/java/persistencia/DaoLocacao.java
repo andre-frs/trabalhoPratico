@@ -14,18 +14,21 @@ import entidade.Locacao;
 public class DaoLocacao extends Dao {
     DaoLocacao(Context context) { super(context); }
 
-    public void insertFuncionario(Locacao l) throws SQLiteException {
-        SQLiteDatabase writtableDB = this.getWritableDatabase();
-
-        try {
-            String values = String.format(Locale.US, "%d, %d, %f, %d, %d", l.getDataDeLocacao().getTime(), l.getDataDeDevolucao().getTime(), l.getQuilometragem(), l.getIdCliente(), l.getIdCarro());
-            writtableDB.execSQL(String.format(Locale.US, "INSERT INTO LOCACAO (DATALOCACAO, DATADEVOLUCAO, QUILOMETRAGEM, IDCLIENTE, IDCARRO) VALUES (%s);", values));
-
-        } catch(SQLiteException e) { throw e;
-        } finally { writtableDB.close(); }
+    public void insertLocacao(Locacao l) throws SQLiteException {
+        String values = String.format(Locale.US, "%d, %d, %f, %d, %d", l.getDataDeLocacao().getTime(), l.getDataDeDevolucao().getTime(), l.getQuilometragem(), l.getIdCliente(), l.getIdCarro());
+        execSQL(String.format(Locale.US, "INSERT INTO LOCACAO (DATALOCACAO, DATADEVOLUCAO, QUILOMETRAGEM, IDCLIENTE, IDCARRO) VALUES (%s);", values));
     }
 
-    public LinkedList<Locacao> selectClientes(String where) throws RuntimeException {
+    public void updateFuncionario(Locacao l) throws SQLiteException {
+        String values = String.format(Locale.US, "DATALOCACAO = %d, DATADEVOLUCAO = %d, QUILOMETRAGEM = %f, IDCLIENTE = %d, IDCARRO = %d", l.getDataDeLocacao().getTime(), l.getDataDeDevolucao().getTime(), l.getQuilometragem(), l.getIdCliente(), l.getIdCarro());
+        execSQL(String.format(Locale.US, "UPDATE LOCACAO SET %s WHERE ID = %d;", values, l.getId()));
+    }
+
+    public void deleteCarro(Locacao l) throws SQLiteException {
+        execSQL(String.format(Locale.US, "DELETE FROM LOCACAO WHERE ID = %d;", l.getId()));
+    }
+
+    public LinkedList<Locacao> selectLocacoes(String where) throws RuntimeException {
         LinkedList<Locacao> locacoes = new LinkedList();
         where = where.equals("") ? where : " where " + where;
         SQLiteDatabase readableBD = this.getReadableDatabase();

@@ -16,14 +16,17 @@ public class DaoFuncionario extends Dao {
     DaoFuncionario(Context context) { super(context); }
 
     public void insertFuncionario(Funcionario f) throws SQLiteException {
-        SQLiteDatabase writtableDB = this.getWritableDatabase();
+        String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', %d, %d, %d", f.getNome(), f.getRg(), f.getCpf(), f.getEndereco(), f.getDataDeAdimissao().getTime(), f.getDataDeDemissao().getTime(), f.getSupervisor() ? 1 : 0);
+        execSQL(String.format(Locale.US, "INSERT INTO FUNCIONARIO (NOME, RG, CPF, ENDERECCO, DATAADIMISSAO, DATADEMISSAO, SUPERVISOR) VALUES (%s);", values));
+    }
 
-        try {
-            String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', %d, %d, %d", f.getNome(), f.getRg(), f.getCpf(), f.getEndereco(), f.getDataDeAdimissao().getTime(), f.getDataDeDemissao().getTime(), f.getSupervisor() ? 1 : 0);
-            writtableDB.execSQL(String.format(Locale.US, "INSERT INTO FUNCIONARIO (NOME, RG, CPF, ENDERECCO, DATAADIMISSAO, DATADEMISSAO, SUPERVISOR) VALUES (%s);", values));
+    public void updateFuncionario(Funcionario f) throws SQLiteException {
+        String values = String.format(Locale.US, "NOME = '%s', RG = '%s', CPF = '%s', ENDERECCO = '%s', DATAADIMISSAO = %d, DATADEMISSAO = %d, SUPERVISOR = %d", f.getNome(), f.getRg(), f.getCpf(), f.getEndereco(), f.getDataDeDemissao().getTime(), f.getDataDeDemissao().getTime(), f.getSupervisor() ? 1 : 0);
+        execSQL(String.format(Locale.US, "UPDATE FUNCIONARIO SET %s WHERE ID = %d;", values, f.getId()));
+    }
 
-        } catch(SQLiteException e) { throw e;
-        } finally { writtableDB.close(); }
+    public void deleteFuncionario(Funcionario f) throws SQLiteException {
+        execSQL(String.format(Locale.US, "DELETE FROM FUNCIONARIO WHERE ID = %d;", f.getId()));
     }
 
     public LinkedList<Funcionario> selectFuncionarios(String where) throws RuntimeException {
