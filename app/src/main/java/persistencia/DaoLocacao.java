@@ -19,12 +19,12 @@ public class DaoLocacao extends Dao {
         execSQL(String.format(Locale.US, "INSERT INTO LOCACAO (DATALOCACAO, DATADEVOLUCAO, QUILOMETRAGEM, IDCLIENTE, IDCARRO) VALUES (%s);", values));
     }
 
-    public void updateFuncionario(Locacao l) throws SQLiteException {
+    public void updateLocacao(Locacao l) throws SQLiteException {
         String values = String.format(Locale.US, "DATALOCACAO = %d, DATADEVOLUCAO = %d, QUILOMETRAGEM = %f, IDCLIENTE = %d, IDCARRO = %d", l.getDataDeLocacao().getTime(), l.getDataDeDevolucao().getTime(), l.getQuilometragem(), l.getIdCliente(), l.getIdCarro());
         execSQL(String.format(Locale.US, "UPDATE LOCACAO SET %s WHERE ID = %d;", values, l.getId()));
     }
 
-    public void deleteCarro(Locacao l) throws SQLiteException {
+    public void deleteLocacao(Locacao l) throws SQLiteException {
         execSQL(String.format(Locale.US, "DELETE FROM LOCACAO WHERE ID = %d;", l.getId()));
     }
 
