@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".CadastroCliente" />
         <activity android:name=".CadastroFuncionario" />
-        <activity android:name=".CadastroCarro"></activity>
+        <activity android:name=".CadastroCarro" />
+        <activity android:name=".CadastroLocacao"></activity>
     </application>
 
 </manifest>
