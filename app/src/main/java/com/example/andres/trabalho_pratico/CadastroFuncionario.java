@@ -1,6 +1,5 @@
 package com.example.andres.trabalho_pratico;
 
-import android.graphics.Path;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
