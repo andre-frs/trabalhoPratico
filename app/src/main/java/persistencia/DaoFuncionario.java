@@ -13,7 +13,7 @@ import entidade.Funcionario;
 
 public class DaoFuncionario extends Dao {
 
-    DaoFuncionario(Context context) { super(context); }
+    public DaoFuncionario(Context context) { super(context); }
 
     public void insertFuncionario(Funcionario f) throws SQLiteException {
         String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', %d, %d, %d", f.getNome(), f.getRg(), f.getCpf(), f.getEndereco(), f.getDataDeAdimissao().getTime(), f.getDataDeDemissao().getTime(), f.getSupervisor() ? 1 : 0);

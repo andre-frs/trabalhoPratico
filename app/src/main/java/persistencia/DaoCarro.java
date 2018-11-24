@@ -11,7 +11,7 @@ import java.util.Locale;
 import entidade.Carro;
 
 public class DaoCarro extends Dao{
-    DaoCarro(Context context) { super(context); }
+    public DaoCarro(Context context) { super(context); }
 
     public void insertCarro(Carro c) throws SQLiteException {
         String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', %f, %f, '%s', %d", c.getPlaca(), c.getNome(), c.getMarca(), c.getModelo(), c.getValorDoSeguro(), c.getValorDaLocacao(), c.getCor(), c.getAtivo() ? 1 : 0);

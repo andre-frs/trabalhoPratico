@@ -12,7 +12,7 @@ import entidade.Cliente;
 
 public class DaoCliente extends Dao {
 
-    DaoCliente(Context context) { super(context); }
+    public DaoCliente(Context context) { super(context); }
 
     public void insertCliente(Cliente c) throws SQLiteException {
         String values = String.format(Locale.US, "'%s', '%s', '%s', '%s', '%s', %d", c.getNome(), c.getRg(), c.getCpf(), c.getEndereco(), c.getCnh(), c.getNumeroDeDependentes());

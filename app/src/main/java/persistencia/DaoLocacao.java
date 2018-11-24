@@ -12,7 +12,7 @@ import java.util.Locale;
 import entidade.Locacao;
 
 public class DaoLocacao extends Dao {
-    DaoLocacao(Context context) { super(context); }
+    public DaoLocacao(Context context) { super(context); }
 
     public void insertLocacao(Locacao l) throws SQLiteException {
         String values = String.format(Locale.US, "%d, %d, %f, %d, %d", l.getDataDeLocacao().getTime(), l.getDataDeDevolucao().getTime(), l.getQuilometragem(), l.getIdCliente(), l.getIdCarro());
